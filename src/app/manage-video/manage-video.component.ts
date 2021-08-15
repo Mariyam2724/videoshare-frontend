@@ -78,8 +78,8 @@ export class ManageVideoComponent implements OnInit {
      })
   }
 
-  sharedWithMe(){
+  // sharedWithMe(){
     
-  }
+  // }
 
 }

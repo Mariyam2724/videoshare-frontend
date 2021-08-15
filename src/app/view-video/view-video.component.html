@@ -1,8 +1,8 @@
 <div class="col-md-10 mx-auto" *ngIf="videoData">
     <video class="img-fluid" [src]="url+'/' + videoData.file" controls></video>
-
-    <h3>{{videoData.title}}</h3>
-    <h3>{{videoData.created | date}}</h3>
-    <h3>{{videoData.user.fullname}}</h3>
+    
+    <h3> {{videoData.title}}
+    {{videoData.created | date}}
+    {{videoData.user.fullname}}</h3>
 
 </div>

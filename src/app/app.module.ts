@@ -19,6 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -31,6 +32,7 @@ import {MatButtonModule} from '@angular/material/button';
     ViewVideoComponent,
     ManageVideoComponent,
     HeaderComponent,
+    HomeComponent,
     
 
   
