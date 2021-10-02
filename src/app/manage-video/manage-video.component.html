@@ -13,93 +13,107 @@
         </div>
     </div>
     <div>
-    <h1 class="text-center">Manage your videos</h1>
-    <hr>
-    <div>
-        <div class="mycard card mt-5" *ngFor="let video of videoList">
-            <div class="">
-           <div class="row">
-               <div class="col-md-4">
-             <img [src]="url+'/'+ video['thumbnail']" alt="" class="card-img-top">
-               </div>
-
-               <div class="col-md-3 card-body">
-                   <h2 > {{video['title']}}</h2>
-                   <div class="row">
-                       <div class="col">
-                           <button class="btn btn-primary mt-5" [routerLink]="['/view', video['_id']]"  >View Video</button>
-                       </div>
-                       <div class="col">
-                           <button class="btn btn-danger mt-5" (click)="deleteVideo(video['_id'])" > <i class="fa fa-trash" aria-hidden="true"></i> </button>
-                       </div>
-                   </div>
-                   
-            </div>
-            <div class="col-md-5 card-body">
-                <div class="input-group"  >
-                    <input type="email" #userEmail class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary"  (click)="shareToUser(video,userEmail.value)">Add User</button>
-                    </div>
-                </div>
-                <a data-bs-toggle="collapse" [href]="'#'+video['title']" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Shared to : 
-                  </a>
-                <hr>
-                <div class="collapse" [id]="video['title']">
-
-                    <div class="list-group">
-                        <div class="list-group-item" *ngFor="let user of video['shared'] ">
-                            <p >{{user.fullname}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <h1>Shared with you</h1>
-            <div class="mycard card mt-5" *ngFor="let video of sharedVideoList">
+        <h1 class="text-center mt-5 text-black">Manage your videos</h1>
+        <hr>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        <div *ngIf="videoList.length">
+            <div class="mycard card mt-5" *ngFor="let video of videoList">
                 <div class="">
-               <div class="row">
-                   <div class="col-md-4">
-                 <img [src]="url+'/'+ video['thumbnail']" alt="" class="card-img-top">
-                   </div>
-    
-                   <div class="col-md-3 card-body">
-                       <h2 > {{video['title']}}</h2>
-                       <button class="btn btn-primary mt-5" [routerLink]="['/view', video['_id']]"  >View Video</button>
-                       
-                </div>
-                <div class="col-md-5 card-body">
-                    <div class="input-group"  >
-                        <input type="email" #userEmail class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary"  (click)="shareToUser(video,userEmail.value)">Add User</button>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img [src]="url+'/'+ video['thumbnail']" alt="" class="card-img-top">
                         </div>
-                    </div>
-                    <a data-bs-toggle="collapse" [href]="'#'+video['title']" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Shared to : 
-                      </a>
-                    <hr>
-                    <div class="collapse" [id]="video['title']">
-    
-                        <div class="list-group">
-                            <div class="list-group-item" *ngFor="let user of video['shared'] ">
-                                <p >{{user.fullname}}</p>
+
+                        <div class="col-md-3 card-body">
+                            <h2> {{video['title']}}</h2>
+                            <mat-slide-toggle class="mt-3" color="primary" [checked]="video['public']"
+                                (change)="setVisibility(video['id'], !video['public'])">
+                                {{video['public'] ? 'Public' : 'Private'}}
+                            </mat-slide-toggle>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary mt-5" [routerLink]="['/view', video['_id']]">View
+                                        Video</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger mt-5" (click)="deleteVideo(video['_id'])"> <i
+                                            class="fa fa-trash" aria-hidden="true"></i> </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5 card-body">
+                            <div class="input-group">
+                                <input type="email" #userEmail class="form-control">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" (click)="shareToUser(video,userEmail.value)">Add
+                                        User</button>
+                                </div>
+                            </div>
+                            <a data-bs-toggle="collapse" [href]="'#'+video['title']" role="button" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Shared to :
+                            </a>
+                            <hr>
+                            <div class="collapse" [id]="video['title']">
+
+                                <div class="list-group">
+                                    <div class="list-group-item" *ngFor="let user of video['shared'] ">
+                                        <p>{{user.fullname}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-               </div>
-    
+            </div>
+        </div>
+        <div *ngIf="!videoList.length">
+            <div class="card">
+                <div class="card-body">
+                    <p class="display-4">Please Upload a Video to View</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h1>Shared with you</h1>
+                <div class="mycard card mt-5" *ngFor="let video of sharedVideoList">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img [src]="url+'/'+ video['thumbnail']" alt="" class="card-img-top">
+                            </div>
+
+                            <div class="col-md-3 card-body">
+                                <h2> {{video['title']}}</h2>
+                                <button class="btn btn-primary mt-5" [routerLink]="['/view', video['_id']]">View
+                                    Video</button>
+
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <input type="email" #userEmail class="form-control">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary"
+                                                (click)="shareToUser(video,userEmail.value)">Add
+                                                User</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

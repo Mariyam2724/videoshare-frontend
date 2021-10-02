@@ -9,3 +9,20 @@ header{
 *{
     font-family: Ubuntu;
 }
+
+button{
+    margin-top: 40px;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    border-radius: 20px;
+    /* background-color: blueviolet; */
+    background: linear-gradient(to right bottom, rgba(233, 14, 167, 0.822), rgba(134, 21, 226, 0.733),rgba(201, 101, 240, 0.575)) no-repeat;
+}
+
+button:hover{
+    background-color: aquamarine;
+    color: azure;
+    border: rgb(152, 222, 135);
+    border: 1px solid red;
+}

@@ -11,16 +11,32 @@ import { VideoService } from '../service/video.service';
 export class ViewVideoComponent implements OnInit {
     videoData:any;
     url=app_config.api_url;
-  constructor(private actroute:ActivatedRoute , private videoservice:VideoService) {
+    videoList = [];
+  
+  currentUser: any;
+  constructor(private actroute:ActivatedRoute , private videoService:VideoService) {
 
    }
 
   ngOnInit(): void {
+    this.currentUser = JSON.parse(sessionStorage.getItem('user') as string);
     let id=this.actroute.snapshot.paramMap.get('videoId');
-   this.videoservice.getVideoById(id).subscribe(( data )=>{
+   this.videoService.getVideoById(id).subscribe(( data )=>{
      console.log(data);
      this.videoData=data;
    })
+   this.fetchVideo();
   }
+
+  fetchVideo() {
+    this.videoService
+      .getVideosByUser(this.currentUser._id)
+      .subscribe((data: any) => {
+        this.videoList = data;
+        console.log(this.videoList);
+      });
+  }
+
+
   
 }

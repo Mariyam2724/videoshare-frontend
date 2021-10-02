@@ -20,6 +20,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import { HomeComponent } from './home/home.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -52,7 +53,8 @@ import { HomeComponent } from './home/home.component';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

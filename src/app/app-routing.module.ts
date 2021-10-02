@@ -5,7 +5,7 @@ import {LogInComponent  } from './log-in/log-in.component';
 import { ManageVideoComponent } from './manage-video/manage-video.component';
 import { SignupComponent } from './signup/signup.component';
 import { ViewVideoComponent } from './view-video/view-video.component';
-
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path:'login', component:LogInComponent},
@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'addvideo', component:  AddVideoComponent},
   { path: 'managevideo', component:  ManageVideoComponent},
   { path: 'view/:videoId', component:  ViewVideoComponent},
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

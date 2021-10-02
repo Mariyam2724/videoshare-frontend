@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UserService } from '../service/user.service';
 import { VideoService } from '../service/video.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-video',
@@ -14,10 +15,13 @@ export class AddVideoComponent implements OnInit {
   currentUser: any;
   thumbnail: any = '';
   videoFile: any = '';
+
   constructor(
     private fb: FormBuilder,
     private videoservice: VideoService,
-    private userservice: UserService
+    private userservice: UserService,
+    private router: Router,
+    
   ) {}
 
   ngOnInit(): void {
@@ -27,9 +31,8 @@ export class AddVideoComponent implements OnInit {
     document.body.classList.add('add-video');
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     document.body.classList.remove('add-video');
-
   }
 
   initForm() {
@@ -40,19 +43,32 @@ export class AddVideoComponent implements OnInit {
       created: new Date(),
       shared: Array,
       title: '',
+      public: false,
     });
   }
 
   videoSubmit() {
     console.log(this.videoForm.value);
-    let formdata=this.videoForm.value;
-    formdata.file=this.videoFile;
-    formdata.thumbnail=this.thumbnail;
+    let formdata = this.videoForm.value;
+    formdata.file = this.videoFile;
+    formdata.thumbnail = this.thumbnail;
     console.log(formdata);
     this.videoservice.addVideo(formdata).subscribe((res) => {
       console.log(res);
+     
     });
-  }
+
+   
+    Swal.fire({
+      icon: 'success',
+      text: 'Successfully!',
+      title: 'Video Added',
+    });
+    this.userservice.currentUser = event;
+    this.router.navigate(['/managevideo']);
+    
+
+    }
 
   uploadThumbnail(event: any) {
     const formdata = new FormData();
@@ -75,10 +91,11 @@ export class AddVideoComponent implements OnInit {
 
     this.userservice.addFile(formdata).subscribe((res) => {
       console.log(res);
-      Swal.fire({
-        icon : 'success',
-        title: 'Add Video Success'
-      })
+      
     });
+    
+    
+  
   }
+  
 }

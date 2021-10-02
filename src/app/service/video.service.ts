@@ -34,4 +34,7 @@ export class VideoService {
   deleteVideo(id:any){
     return this.http.delete(this.url + '/video/delete/' + id)
   }
+  updateVideo(id: any, data: any) {
+    return this.http.put(this.url + '/video/update/' + id, data);
+  }
 }
